@@ -10,7 +10,6 @@ class InventoryAllocation:
         mapped with inventory to ship from them.
         """
         warehouse_fulfillment = []
-        products_sources = []
         for product, quantity_ordered in order.items():
             product_source = {}
             quantity_still_needed = quantity_ordered

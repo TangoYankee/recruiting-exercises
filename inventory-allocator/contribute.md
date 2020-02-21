@@ -8,6 +8,7 @@ expensive warehouse.
     - solution is to ship all from the expensive warehouse
 3) Orders will be split when there is not enough inventory in a single warehouse to fufill an order.
    - Assume that is best to get all of the items from the less expensive warehouse before moving on to the next warehouse
+4) No data structures are corrupted (ie. missing expected keys)
 
 ## Strategy:
 1) Iterate through the sorted list of warehouses
@@ -18,6 +19,7 @@ expensive warehouse.
 5) If the next warehouse can fill the whole order, allocate all of the fulfillment to that warehouse/remove other warehouses
    - If it can fill only part of it, fill that part
 6) Once all of the orders are filled, exit the iteration
+7) If not all orders can be fulfilled, return as many as possible and flag 'incomplete order'
 
 ## Language
 - Python v3.6.9

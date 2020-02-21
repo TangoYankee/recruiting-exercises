@@ -10,53 +10,51 @@ class InventoryAllocation:
         mapped with inventory to ship from them.
         """
         "product fulfilled by map"
+
+        warehouse_fulfillment = []
         warehouse_fulfillment = []
         products_sources = []
         for product, quantity_ordered in order.items():
-            product_source = {product: {}}
-            print(product)
-            print(quantity_ordered)
+            product_source = {}
+            quantity_still_needed = quantity_ordered
             for warehouse in warehouses:
                 quantity_in_warehouse = warehouse['inventory'].get(product)
                 if quantity_in_warehouse:
+                    # This warehouse would fulfill the whole order
                     if quantity_in_warehouse >= quantity_ordered:
-                        # Then this is the only source for this product!!!!
-                        product_source[product] = {warehouse['name']: quantity_ordered }
+                        # product_source[product] = { warehouse['name']: quantity_ordered }
+                        product_source = { warehouse['name']: quantity_ordered }
+                        quantity_still_needed = 0
                         break
-                    elif quantity_in_warehouse < quantity_ordered: 
-                        product_source[product][warehouse['name']] = quantity_in_warehouse
-            products_sources.append(product_source)
-            print(product_source)
-        print(products_sources)
+                    # There are enough products to fill the rest of the order
+                    elif quantity_in_warehouse >= quantity_still_needed:
+                        # product_source[product][warehouse['name']] = quantity_still_needed
+                        product_source[warehouse['name']] = quantity_still_needed
+                        quantity_still_needed = 0
+                        break
+                    # There are not enough products to fill the rest of the order
+                    elif quantity_in_warehouse < quantity_still_needed:
+                        quantity_still_needed -= quantity_in_warehouse
+                        # product_source[product][warehouse['name']] = quantity_in_warehouse
+                        product_source[warehouse['name']] = quantity_in_warehouse
+            # Any unfufilled products will be noted
+            if quantity_still_needed >= 1:
+                product_source['unfulfilled'] = quantity_still_needed
 
+            # Add all warehouses into a single list, without regard as to wether they are aleady in the list
+            for warehouse, quantity in product_source.items():
+                # next(item for item in dicts if item)
+                warehouse_for_product = {warehouse : {product: quantity}}
+                if warehouse_fulfillment == []:                    
+                    warehouse_fulfillment.append(warehouse_for_product)
+                else:
+                    warehouse_in_list = False
+                    for warehouse_data in warehouse_fulfillment:
+                        if warehouse in warehouse_data.keys():
+                            warehouse_in_list=True
+                            warehouse_data[warehouse][product]=quantity
+                            break
+                    if not warehouse_in_list:
+                        warehouse_fulfillment.append(warehouse_for_product)
 
-
-        # product_fulfilled_by_map = {}
-        # unfulfilled_products = {'unfulfilled' : order}
-        # warehouse_fulfillment = []
-        # warehouse = warehouses[0]
-
-
-        # this_warehouse_fulfillment['name'] = warehouse_name
-        # this_warehouse_fulfillment[]
-
-        # for product, quantity_unfulfilled in unfulfilled_products['unfulfilled'].items():
-        #     print(product)
-        #     quantity_in_warehouse = warehouse['inventory'].get(product)
-        #     if (quantity_in_warehouse):
-        #         ordered_quantity = order[product]
-        #         # If it has enough to fulfill the order, it will be the only warehouse to fill the order
-        #         if quantity_in_warehouse >= ordered_quantity:
-        #             # Remember its name
-        #             warehouse_name = warehouse['name']
-        #             # Add it to the list of fulfilling warehouses
-        #             # add the full quantity to its map
-
-        #             # warehouse_fulfillment[warehouse_name][product] = ordered_quantity
-        #             # 
-        #             print(warehouse_fulfillment)
-        #     else:
-        #         print (False)
-        # for warehouse in warehouses:
-        #     print(warehouse)
         return (warehouse_fulfillment)

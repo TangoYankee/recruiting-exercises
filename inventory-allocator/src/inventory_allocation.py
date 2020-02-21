@@ -12,7 +12,6 @@ class InventoryAllocation:
         "product fulfilled by map"
 
         warehouse_fulfillment = []
-        warehouse_fulfillment = []
         products_sources = []
         for product, quantity_ordered in order.items():
             product_source = {}

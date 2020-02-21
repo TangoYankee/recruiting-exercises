@@ -26,24 +26,5 @@ def main():
   return(warehouse_fulfillment)
 
 if __name__ == "__main__":
-#   output = [
-#   {
-#     'owd': { 'banana': 4 }
-#   },
-#   {
-#     'dm': {'apple': 4, 'banana': 4 }
-#   },
-#   {
-#     'exotic': {'banana': 6}
-#   },
-#   {
-#     'unfulfilled': {'banana': 1}
-#   }
-# ]
-#   for item in output:
-#     for key, value in item.items():
-#       print(key)
-#       print(value)
-#     print (item)
   print (main())
   

@@ -35,9 +35,9 @@ First, second, and fourth warehouse needed
 """
 order_three = {"apple": 8, "avocado": 2, "banana": 7}
 warehouse_fulfillment_three = [
+    {"exotic": {"avocado": 2, "banana": 1}},
     {"owd": {"apple": 1, "banana": 4}},
     {"dm": {"apple": 7, "banana": 2}},
-    {"exotic": {"avocado": 2, "banana": 1}},
 ]
 
 """
@@ -52,7 +52,10 @@ Five:
 Second and fourth warehouse needed
 """
 order_five = {"apple": 4, "avocado": 4}
-warehouse_fulfillment_five = [{"dm": {"apple": 4}}, {"exotic": {"avocado": 4}}]
+warehouse_fulfillment_five = [
+    {"exotic": {"avocado": 4}},
+    {"dm": {"apple": 4}}
+    ]
 
 """
 Six:
@@ -66,7 +69,7 @@ Flag not enough of an item
 order_six = {"apple": 4, "banana": 13}
 warehouse_fulfillment_six = [
     {"dm": {"apple": 4, "banana": 2}},
-    {"owd": {"banana": 4}},
     {"exotic": {"banana": 6}},
+    {"owd": {"banana": 4}},
     {"unfulfilled": {"banana": 1}},
 ]

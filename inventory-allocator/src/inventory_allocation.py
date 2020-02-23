@@ -27,7 +27,7 @@ class InventoryAllocation:
                         quantity_still_needed = 0
                         break
                     # There are not enough products to fill the rest of the order
-                    elif quantity_in_warehouse < quantity_still_needed:
+                    elif 0 < quantity_in_warehouse < quantity_still_needed:
                         quantity_still_needed -= quantity_in_warehouse
                         product_source[warehouse["name"]] = quantity_in_warehouse
             # Any unfufilled products will be noted
